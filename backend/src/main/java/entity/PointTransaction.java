@@ -5,17 +5,17 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "point_adjustments")
+@Table(name = "loyalty_transactions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 
-public class PointAdjustments {
+public class PointTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adjustment_id")
+    @Column(name = "transaction_id")
     private Long id;
 
     @Column(name = "change_amount")
