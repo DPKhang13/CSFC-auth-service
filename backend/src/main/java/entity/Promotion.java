@@ -22,16 +22,20 @@ public class Promotion {
     private String name;
 
     private String type;
-    private Double value;
 
-    @Column(name = "min_order_amount")
-    private Double minOrderAmount;
+    private String description;
 
-    @Column(name = "start_date")
+    @Column(name = "point_required")
     private LocalDateTime startDate;
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    private String status;
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "franchies_id")
+    private Franchies franchies;
+
 }

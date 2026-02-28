@@ -27,5 +27,11 @@ public class Reward {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String status;
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "franchies_id")
+    private Franchies franchies;
+
 }

@@ -18,15 +18,32 @@ public class LoyaltyRule {
     @Column(name = "rule_id")
     private Long id;
 
-    @Column(name = "money_to_points_ratio")
-    private Integer moneyToPointsRatio;
+    @Column(name = "loyalty_rule_name")
+    private String name;
+
+    @Column(name = "event_type")
+    private String eventType;
+
+    @Column(name = "point_multiplier")
+    private Double pointMultiplier;
+
+    @Column(name = "fixed_points")
+    private Integer fixedPoints;
+
+    @Column(name = "min_order_value")
+    private Double minOrderValue;
 
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "started_at")
+    private LocalDateTime startedAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "ended_at")
+    private LocalDateTime endAt;
+
+    @ManyToOne
+    @JoinColumn(name = "franchies_id")
+    private Franchies franchies;
+
 }

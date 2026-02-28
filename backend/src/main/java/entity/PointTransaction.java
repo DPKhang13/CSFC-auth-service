@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class PointTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transaction_id")
+    @Column(name = "point_transaction_id")
     private Long id;
 
     @Column(name = "change_amount")

@@ -14,6 +14,5 @@ public class LoyaltySeriveImpl implements LoyaltyService {
     private final CustomerFranchiesRepository customerFranchiesRepository;
     private final PointTransaction loyaltyTransaction;
 
-    @Transactional
 
 }

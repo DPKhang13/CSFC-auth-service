@@ -24,6 +24,14 @@ public class Tier {
     @Column(name = "min_points")
     private Integer minPoints;
 
+    @Column(name = "tier_muliplier")
+    private Double multiplier;
+
     @Column(columnDefinition = "TEXT")
     private Integer benefits;
+
+    @ManyToOne
+    @JoinColumn(name = "franchies_id")
+    private Franchies franchies;
+
 }

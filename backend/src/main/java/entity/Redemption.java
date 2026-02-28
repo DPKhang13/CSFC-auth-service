@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-
 public class Redemption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +29,9 @@ public class Redemption {
     @Column(name = "redeemed_at")
     private LocalDateTime redeemedAt;
 
-    @Column(name = "fulfilled_at")
-    private LocalDateTime fulfilledAt;
-
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "customer_franchies_id")
+    private CustomerFranchies customerFranchies;
 
     @ManyToOne
     @JoinColumn(name = "reward_id")

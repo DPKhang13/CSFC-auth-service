@@ -18,8 +18,8 @@ public class CustomerFranchies {
     @Column(name = "customer_franchies_id")
     private Long id;
 
-    @Column(name = "loyalty_points")
-    private Integer loyaltyPoints;
+    @Column(name = "current_points")
+    private Integer currentPoints;
 
     @Column(name = "total_earned_points")
     private Integer totalEarnedPoints;

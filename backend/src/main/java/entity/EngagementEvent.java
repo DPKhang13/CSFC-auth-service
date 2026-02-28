@@ -21,11 +21,6 @@ public class EngagementEvent {
     @Column(name = "event_type")
     private String eventType;
 
-    private Integer source;
-
-    @Column(name = "reference_id")
-    private Long referenceId;
-
     @Column(columnDefinition = "json")
     private String metadata;
 
@@ -37,6 +32,6 @@ public class EngagementEvent {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "promotion_id")
-    private Promotion promotion;
+    @JoinColumn(name = "franchies_id")
+    private Franchies franchies;
 }
