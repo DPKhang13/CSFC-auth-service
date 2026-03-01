@@ -44,6 +44,6 @@ public class LoyaltyRule {
 
     @ManyToOne
     @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    private Franchise franchise;
 
 }

@@ -45,7 +45,7 @@ public class CustomerFranchise {
 
     @ManyToOne
     @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    private Franchise franchies;
 
     @ManyToOne
     @JoinColumn(name = "tier_id")

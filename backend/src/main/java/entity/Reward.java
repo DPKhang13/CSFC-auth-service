@@ -2,7 +2,6 @@ package entity;
 
 import lombok.*;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reward")
@@ -32,6 +31,6 @@ public class Reward {
 
     @ManyToOne
     @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    private Franchise franchies;
 
 }

@@ -36,6 +36,6 @@ public class Promotion {
 
     @ManyToOne
     @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    private Franchise franchies;
 
 }
