@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -52,4 +52,6 @@ public class Coupon {
     @ManyToOne
     @JoinColumn(name = "min_tier_id")
     private Tier minTier;
+
+
 }

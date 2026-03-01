@@ -1,30 +1,35 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reward")
+@Table(name = "promotion")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 
-public class Reward {
+public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reward_id")
+    @Column(name = "promotion_id")
     private Long id;
 
-    @Column(name = "reward_name")
+    @Column(name = "promotion_name")
     private String name;
 
-    @Column(name = "points_required")
-    private Integer pointsRequired;
+    private String type;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "point_required")
+    private LocalDateTime startDate;
+
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
 
     @Column(name = "is_active")
     private Boolean isActive;

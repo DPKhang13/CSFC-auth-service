@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
