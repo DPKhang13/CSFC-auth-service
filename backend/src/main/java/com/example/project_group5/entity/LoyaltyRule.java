@@ -42,8 +42,7 @@ public class LoyaltyRule {
     @Column(name = "ended_at")
     private LocalDateTime endAt;
 
-    @ManyToOne
-    @JoinColumn(name = "franchies_id")
-    private Franchise franchise;
+    @Column(name = "customer_franchies_id")
+    private Long customerFranchiseId;
 
 }

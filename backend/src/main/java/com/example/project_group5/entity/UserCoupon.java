@@ -18,16 +18,15 @@ public class UserCoupon {
     @Column(name = "user_coupon_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "customer_id")
+    private Long customer;
 
     @ManyToOne
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    @Column(name = "is_redeemed")
-    private Order order;
+    @Column(name = "order_id")
+    private Integer order;
 
     private String status;
 

@@ -29,8 +29,7 @@ public class Tier {
     @Column(columnDefinition = "TEXT")
     private Integer benefits;
 
-    @ManyToOne
-    @JoinColumn(name = "franchies_id")
-    private Franchise franchies;
+    @Column(name = "franchies_id")
+    private Long franchiesId;
 
 }

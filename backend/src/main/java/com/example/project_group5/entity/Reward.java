@@ -29,8 +29,7 @@ public class Reward {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToOne
-    @JoinColumn(name = "franchies_id")
-    private Franchise franchies;
+    @Column(name = "franchies_id")
+    private Long franchiesId;
 
 }

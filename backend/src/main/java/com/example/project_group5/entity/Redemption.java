@@ -29,9 +29,8 @@ public class Redemption {
     @Column(name = "redeemed_at")
     private LocalDateTime redeemedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_franchies_id")
-    private CustomerFranchise customerFranchise;
+    @Column(name = "customer_franchies_id")
+    private Long customerFranchiseId;
 
     @ManyToOne
     @JoinColumn(name = "reward_id")

@@ -53,5 +53,4 @@ public class Coupon {
     @JoinColumn(name = "min_tier_id")
     private Tier minTier;
 
-
 }
