@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -42,8 +42,7 @@ public class LoyaltyRule {
     @Column(name = "ended_at")
     private LocalDateTime endAt;
 
-    @ManyToOne
-    @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    @Column(name = "customer_franchies_id")
+    private Long customerFranchiseId;
 
 }

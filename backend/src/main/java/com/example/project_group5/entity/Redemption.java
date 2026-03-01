@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -29,9 +29,8 @@ public class Redemption {
     @Column(name = "redeemed_at")
     private LocalDateTime redeemedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_franchies_id")
-    private CustomerFranchise customerFranchise;
+    @Column(name = "customer_franchies_id")
+    private Long customerFranchiseId;
 
     @ManyToOne
     @JoinColumn(name = "reward_id")

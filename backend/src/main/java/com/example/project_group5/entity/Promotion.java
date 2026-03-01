@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class Promotion {
 
     private String description;
 
-    @Column(name = "point_required")
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
     @Column(name = "end_date")
@@ -34,8 +34,7 @@ public class Promotion {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToOne
-    @JoinColumn(name = "franchies_id")
-    private Franchies franchies;
+    @Column(name = "franchies_id")
+    private Long franchiesId;
 
 }

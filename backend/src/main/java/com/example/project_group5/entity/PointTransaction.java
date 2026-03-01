@@ -1,4 +1,4 @@
-package entity;
+package com.example.project_group5.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
@@ -35,9 +35,8 @@ public class PointTransaction {
     @Column(name = "reference_id")
     private String referenceId;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "customer_id")
+    private Long customerId;
 
     @ManyToOne
     @JoinColumn(name = "loyalty_rule_id")
