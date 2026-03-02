@@ -34,4 +34,16 @@ public class Coupon extends BaseEntity {
 
     @Column(name = "used_count")
     private Integer usedCount = 0;
+
+    @Column(name = "min_order_value")
+    private double minOrderValue;
+
+    @Column(name = "max_discount")
+    private double maxDiscount;
+
+    @Column(name = "user_limit")
+    private int userLimit;
+
+    @Column(name = "is_public")
+    private boolean isPublic;
 }
