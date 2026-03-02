@@ -15,7 +15,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     // Logic overlapping: (StartA <= EndB) and (EndA >= StartB)
     @Query("SELECT COUNT(p) > 0 FROM Promotion p " +
            "WHERE p.franchiseId = :franchiseId " +
-           "AND p.status = 'ACTIVE' " +
+           "AND (p.status = 'ACTIVE' OR p.status = 'DRAFT') " +
            "AND (:startDate <= p.endDate AND :endDate >= p.startDate)")
     boolean existsOverlappingPromotion(@Param("franchiseId") Long franchiseId, 
                                        @Param("startDate") LocalDateTime startDate, 

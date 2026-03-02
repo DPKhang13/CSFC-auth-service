@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 public class UserCoupon extends BaseEntity {
 
-    @Column(name = "customer_franchise_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_franchise_id", nullable = false)
     private CustomerFranchise customerFranchise;
 
     @ManyToOne(fetch = FetchType.LAZY)
