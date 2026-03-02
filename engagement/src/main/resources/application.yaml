@@ -24,9 +24,8 @@ spring:
 
   # --- JPA / Hibernate (SỬA LẠI: Thẳng hàng với datasource) ---
   jpa:
-  
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

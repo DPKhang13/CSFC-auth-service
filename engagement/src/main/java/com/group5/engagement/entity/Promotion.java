@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Promotion extends BaseEntity {
 
     @Column(name = "franchise_id")
