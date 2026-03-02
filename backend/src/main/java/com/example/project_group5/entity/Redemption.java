@@ -29,7 +29,7 @@ public class Redemption {
     @Column(name = "redeemed_at")
     private LocalDateTime redeemedAt;
 
-    @Column(name = "customer_franchies_id")
+    @Column(name = "customer_franchise_id")
     private Long customerFranchiseId;
 
     @ManyToOne

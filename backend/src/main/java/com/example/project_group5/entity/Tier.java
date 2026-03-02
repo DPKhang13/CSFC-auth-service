@@ -23,13 +23,13 @@ public class Tier {
     @Column(name = "min_points")
     private Integer minPoints;
 
-    @Column(name = "tier_muliplier")
+    @Column(name = "tier_multiplier")
     private Double multiplier;
 
     @Column(columnDefinition = "TEXT")
     private Integer benefits;
 
-    @Column(name = "franchies_id")
-    private Long franchiesId;
+    @Column(name = "franchise_id")
+    private Long franchiseId;
 
 }

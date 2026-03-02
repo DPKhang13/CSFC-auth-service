@@ -42,7 +42,7 @@ public class LoyaltyRule {
     @Column(name = "ended_at")
     private LocalDateTime endAt;
 
-    @Column(name = "customer_franchies_id")
+    @Column(name = "customer_franchise_id")
     private Long customerFranchiseId;
 
 }

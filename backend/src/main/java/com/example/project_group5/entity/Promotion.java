@@ -34,7 +34,7 @@ public class Promotion {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Column(name = "franchies_id")
-    private Long franchiesId;
+    @Column(name = "franchise_id")
+    private Long franchiseId;
 
 }
