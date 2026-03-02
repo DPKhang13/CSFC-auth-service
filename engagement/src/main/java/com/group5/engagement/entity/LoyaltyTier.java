@@ -13,6 +13,9 @@ import lombok.*;
 @Builder
 public class LoyaltyTier extends BaseEntity {
 
+    @Column(name = "franchise_id", nullable = false)
+    private Long franchiseId;
+
     @Column(nullable = false)
     private String name; // Ví dụ: Gold, Silver
 
