@@ -4,6 +4,7 @@ import com.group5.engagement.dto.request.ApplyCouponRequest;
 import com.group5.engagement.dto.response.ApplyCouponResponse;
 import com.group5.engagement.entity.Coupon;
 import com.group5.engagement.exception.coupon.CouponNotFoundException;
+import com.group5.engagement.exception.coupon.InvalidCouponException;
 import com.group5.engagement.repository.CouponRepository;
 import com.group5.engagement.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class CouponServiceImpl implements CouponService {
                 .orElseThrow(CouponNotFoundException::new);
 
         if (coupon.getUsedCount() >= coupon.getUsageLimit()) {
-            throw new RuntimeException("Phiếu giảm giá hết lượt dùng");
+            throw new InvalidCouponException("Phiếu giảm giá hết lượt dùng");
         }
 
         if (req.getOrderAmount() < coupon.getMinOrderValue()) {
-            throw new RuntimeException("Tổng số tiền đơn hàng không đủ để áp dụng phiếu giảm giá");
+            throw new InvalidCouponException("Tổng số tiền đơn hàng không đủ để áp dụng phiếu giảm giá");
         }
 
         double discount = calculateDiscount(coupon, req.getOrderAmount());
