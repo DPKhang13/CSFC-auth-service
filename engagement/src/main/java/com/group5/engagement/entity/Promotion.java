@@ -1,5 +1,6 @@
 package com.group5.engagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group5.engagement.base.BaseEntity;
 import com.group5.engagement.constants.PromotionStatus;
 import jakarta.persistence.*;
@@ -31,5 +32,6 @@ public class Promotion extends BaseEntity {
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "promotion")
+    @JsonIgnore  
     private List<Coupon> coupons;
 }
