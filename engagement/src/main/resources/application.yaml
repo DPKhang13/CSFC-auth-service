@@ -24,7 +24,6 @@ spring:
 
   # --- JPA / Hibernate (SỬA LẠI: Thẳng hàng với datasource) ---
   jpa:
-    # Đổi sang 'create' để ép tạo bảng lần đầu (sau đó đổi lại update)
     hibernate:
       ddl-auto: create
     show-sql: true
@@ -73,3 +72,17 @@ logging:
     com.yourcompany.engagement: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
+
+# ==============================================================
+# 5. Cấu hình Swagger/OpenAPI
+# ==============================================================
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+  show-actuator: false

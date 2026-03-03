@@ -1,7 +1,11 @@
 package com.group5.engagement.repository;
 
 import com.group5.engagement.entity.CustomerFranchise;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -14,4 +18,13 @@ public interface CustomerFranchiseRepository extends JpaRepository<CustomerFranc
 
     // Kiểm tra nhanh xem khách hàng tồn tại chưa (trả về true/false)
     boolean existsByCustomerIdAndFranchiseId(Long customerId, Long franchiseId);
+
+    @Query("SELECT cf FROM CustomerFranchise cf " +
+            "WHERE (:franchiseId IS NULL OR cf.franchiseId = :franchiseId) " +
+            "AND (:tierId IS NULL OR cf.tier.id = :tierId)")
+    Page<CustomerFranchise> findByFilters(
+            @Param("franchiseId") Long franchiseId,
+            @Param("tierId") Long tierId,
+            Pageable pageable
+    );
 }
