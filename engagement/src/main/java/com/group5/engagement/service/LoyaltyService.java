@@ -23,4 +23,6 @@ public interface LoyaltyService {
     );
 
     LoyaltyTierResponse createTier(CreateLoyaltyTierRequest request);
+    List<LoyaltyTierResponse> getAllTiers(Long franchiseId);
+    LoyaltyTierResponse updateTier(Long tierId, CreateLoyaltyTierRequest request);
 }

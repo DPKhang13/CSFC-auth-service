@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,5 @@ public interface LoyaltyTierRepository extends JpaRepository<LoyaltyTier, Long> 
     Optional<LoyaltyTier> findHighestTierByPoints(Long franchiseId, Integer points);
 
     boolean existsByFranchiseIdAndName(Long franchiseId, TierName name);
+    List<LoyaltyTier> findByFranchiseId(Long franchiseId);
 }

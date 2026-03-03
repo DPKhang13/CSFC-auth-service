@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Admin Loyalty", description = "Quản lý hệ thống Loyalty & Tier khách hàng")
 @RestController
 @RequestMapping("/api/v1/admin/loyalty")
@@ -66,5 +68,20 @@ public class AdminLoyaltyController {
 
         LoyaltyTierResponse response = loyaltyService.createTier(request);
         return ResponseEntity.ok(response);
+    }
+    @GetMapping("/tiers")
+    public ResponseEntity<List<LoyaltyTierResponse>> getAllTiers(
+            @RequestParam Long franchiseId
+    ) {
+        return ResponseEntity.ok(
+                loyaltyService.getAllTiers(franchiseId)
+        );
+    }
+    @PutMapping("/tiers/{tierId}")
+    public LoyaltyTierResponse updateTier(
+            @PathVariable Long tierId,
+            @RequestBody CreateLoyaltyTierRequest request) {
+
+        return loyaltyService.updateTier(tierId, request);
     }
 }

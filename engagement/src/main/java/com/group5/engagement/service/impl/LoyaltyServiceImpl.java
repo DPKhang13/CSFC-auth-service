@@ -12,6 +12,7 @@ import com.group5.engagement.repository.CustomerFranchiseRepository;
 import com.group5.engagement.repository.LoyaltyTierRepository;
 import com.group5.engagement.repository.PointTransactionRepository;
 import com.group5.engagement.service.LoyaltyService;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -133,4 +134,66 @@ public class LoyaltyServiceImpl implements LoyaltyService {
                 .benefits(saved.getBenefits())
                 .build();
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<LoyaltyTierResponse> getAllTiers(Long franchiseId) {
+
+        return tierRepository
+                .findByFranchiseId(franchiseId)
+                .stream()
+                .sorted((t1, t2) -> t1.getMinPoints().compareTo(t2.getMinPoints()))
+                .map(this::mapToTierResponse)
+                .toList();
+    }
+    private LoyaltyTierResponse mapToTierResponse(LoyaltyTier tier) {
+        return LoyaltyTierResponse.builder()
+                .id(tier.getId())
+                .franchiseId(tier.getFranchiseId())
+                .name(tier.getName())
+                .minPoints(tier.getMinPoints())
+                .tierMultiplier(tier.getTierMultiplier())
+                .benefits(tier.getBenefits())
+                .build();
+    }
+    @Override
+    @Transactional
+    public LoyaltyTierResponse updateTier(Long tierId, CreateLoyaltyTierRequest request) {
+
+        LoyaltyTier tier = tierRepository.findById(tierId)
+                .orElseThrow(() -> new ResourceNotFoundException("Tier not found"));
+
+        // Không cho đổi franchiseId
+        if (!tier.getFranchiseId().equals(request.getFranchiseId())) {
+            throw new IllegalArgumentException("Cannot change franchiseId");
+        }
+
+        // Nếu đổi name
+        if (request.getName() != null && request.getName() != tier.getName()) {
+
+            boolean exists = tierRepository.existsByFranchiseIdAndName(
+                    request.getFranchiseId(),
+                    request.getName()
+            );
+
+            if (exists) {
+                throw new IllegalArgumentException("Tier name already exists in this franchise");
+            }
+
+            tier.setName(request.getName());
+
+            int minPoints = switch (request.getName()) {
+                case BRONZE -> 0;
+                case SILVER -> 500;
+                case GOLD -> 1000;
+            };
+
+            tier.setMinPoints(minPoints);
+        }
+
+        tier.setTierMultiplier(request.getTierMultiplier());
+        tier.setBenefits(request.getBenefits());
+
+        return mapToTierResponse(tierRepository.save(tier));
+    }
+
 }
