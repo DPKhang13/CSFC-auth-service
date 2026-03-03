@@ -1,18 +1,25 @@
 package com.group5.engagement.service.impl;
 
+import com.group5.engagement.constants.ActionType;
+import com.group5.engagement.dto.request.RedeemRequest;
 import com.group5.engagement.dto.response.CustomerEngagementResponse;
+import com.group5.engagement.dto.response.RedeemResponse;
 import com.group5.engagement.dto.response.TransactionHistoryResponse;
 import com.group5.engagement.entity.CustomerFranchise;
 import com.group5.engagement.entity.PointTransaction;
+import com.group5.engagement.entity.Reward;
 import com.group5.engagement.exception.ResourceNotFoundException;
 import com.group5.engagement.repository.CustomerFranchiseRepository;
 import com.group5.engagement.repository.PointTransactionRepository;
+import com.group5.engagement.repository.RewardRepository;
 import com.group5.engagement.service.LoyaltyService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +30,8 @@ public class LoyaltyServiceImpl implements LoyaltyService {
 
     private final CustomerFranchiseRepository customerFranchiseRepository;
     private final PointTransactionRepository pointTransactionRepository;
+    private final RewardRepository rewardRepository;
+
     @Override
     public CustomerEngagementResponse getCustomerEngagement(Long customerId, Long franchiseId) {
         CustomerFranchise cf = customerFranchiseRepository
@@ -92,4 +101,50 @@ public class LoyaltyServiceImpl implements LoyaltyService {
                 .expiryDate(pt.getExpiryDate())
                 .build();
     }
+
+    @Transactional
+    public RedeemResponse redeem(RedeemRequest request) {
+
+        CustomerFranchise customerFranchise = customerFranchiseRepository
+                .findByCustomerIdForUpdate(request.getCustomerFranchiseId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        Reward reward = rewardRepository
+                .findById(request.getRewardId())
+                .orElseThrow(() -> new RuntimeException("Reward not found"));
+
+        if(!reward.getIsActive()){
+            throw new ResourceNotFoundException("Reward is not active");
+        }
+
+        if(!reward.getFranchiseId()
+                .equals(customerFranchise.getFranchiseId())) {
+            throw new IllegalArgumentException("Reward does not belong to this franchise");
+        }
+
+        if(customerFranchise.getCurrentPoints() < reward.getRequiredPoints()){
+            throw new ResourceNotFoundException("Not enough loyalty points ");
+        }
+
+        int remainingPoints = customerFranchise.getCurrentPoints() - reward.getRequiredPoints();
+        customerFranchise.setCurrentPoints(remainingPoints);
+        customerFranchiseRepository.save(customerFranchise);
+
+        PointTransaction  pointTransaction = PointTransaction.builder()
+                .customerFranchise(customerFranchise)
+                .amount(-reward.getRequiredPoints())
+                .actionType(ActionType.REDEEM)
+                .referenceId("REWARD" + reward.getId())
+                .expiryDate(null)
+                .build();
+        pointTransactionRepository.save(pointTransaction);
+
+        return  RedeemResponse.builder()
+                .redemptionCode("REWARD" + reward.getId())
+                .pointUsed(reward.getRequiredPoints())
+                .currentPoints(remainingPoints)
+                .build();
+
+    }
+
 }
