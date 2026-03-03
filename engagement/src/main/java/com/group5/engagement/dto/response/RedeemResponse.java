@@ -10,5 +10,4 @@ public class RedeemResponse {
     private String redemptionCode;
     private Integer pointUsed;
     private Integer currentPoints;
-
 }

@@ -35,4 +35,10 @@ public class PointTransaction extends BaseEntity {
 
     @Column(name = "expiry_date")
     private LocalDateTime expiryDate;
+
+//    public enum ActionType {
+//        ERN,
+//        REDEEM,
+//        ADJUST
+//    }
 }

@@ -1,6 +1,7 @@
 package com.group5.engagement.entity;
 
 import com.group5.engagement.base.BaseEntity;
+import com.group5.engagement.constants.TierName;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,9 @@ public class LoyaltyTier extends BaseEntity {
     @Column(name = "franchise_id", nullable = false)
     private Long franchiseId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String name; // Ví dụ: Gold, Silver
+    private TierName name;
 
     @Column(name = "min_points")
     private Integer minPoints;
