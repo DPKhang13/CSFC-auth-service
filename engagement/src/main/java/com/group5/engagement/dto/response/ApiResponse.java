@@ -42,5 +42,5 @@ public class ApiResponse <T> {
         return error;
     }
 
-    public String getMessage() {return  message;}
+    public String getMessage() {return message;}
 }
