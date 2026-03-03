@@ -1,9 +1,11 @@
 package com.group5.engagement.repository;
 
 import com.group5.engagement.entity.CustomerFranchise;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,4 +29,8 @@ public interface CustomerFranchiseRepository extends JpaRepository<CustomerFranc
             @Param("tierId") Long tierId,
             Pageable pageable
     );
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT cf FROM CustomerFranchise cf WHERE cf.customerId =:id")
+    Optional<CustomerFranchise> findByCustomerIdForUpdate(@Param("id") Long id);
 }

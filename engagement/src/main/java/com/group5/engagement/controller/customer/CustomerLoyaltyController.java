@@ -1,14 +1,13 @@
 package com.group5.engagement.controller.customer;
 
+import com.group5.engagement.dto.request.RedeemRequest;
 import com.group5.engagement.dto.response.CustomerEngagementResponse;
+import com.group5.engagement.dto.response.RedeemResponse;
 import com.group5.engagement.dto.response.TransactionHistoryResponse;
 import com.group5.engagement.service.LoyaltyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +31,13 @@ public class CustomerLoyaltyController {
             @PathVariable Long franchiseId) {
         List<TransactionHistoryResponse> transactions = loyaltyService.getTransactionHistory(customerId, franchiseId);
         return ResponseEntity.ok(transactions);
+    }
+
+    @PostMapping("/redeem")
+    public ResponseEntity<RedeemResponse> redeem(
+            @RequestBody RedeemRequest request
+    ) {
+        RedeemResponse response = loyaltyService.redeem(request);
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,6 +1,8 @@
 package com.group5.engagement.service;
 
+import com.group5.engagement.dto.request.RedeemRequest;
 import com.group5.engagement.dto.response.CustomerEngagementResponse;
+import com.group5.engagement.dto.response.RedeemResponse;
 import com.group5.engagement.dto.response.TransactionHistoryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +21,5 @@ public interface LoyaltyService {
             Long tierId,
             Pageable pageable
     );
+    RedeemResponse redeem(RedeemRequest redeemRequest);
 }
