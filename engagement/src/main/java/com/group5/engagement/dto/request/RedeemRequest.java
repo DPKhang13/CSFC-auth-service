@@ -3,8 +3,8 @@ package com.group5.engagement.dto.request;
 import lombok.Data;
 
 @Data
-public class    RedeemRequest {
+public class RedeemRequest {
 
-    private Long custromerFranchiesId;
+    private Long customerFranchiseId;
     private Long rewardId;
 }

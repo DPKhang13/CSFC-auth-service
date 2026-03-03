@@ -3,11 +3,15 @@ package com.group5.engagement.service.impl;
 import com.group5.engagement.constants.PromotionStatus;
 import com.group5.engagement.dto.request.CreatePromotionRequest;
 import com.group5.engagement.entity.Promotion;
+import com.group5.engagement.exception.ResourceNotFoundException;
 import com.group5.engagement.repository.PromotionRepository;
 import com.group5.engagement.service.PromotionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service // Đánh dấu đây là Bean để Spring quản lý
 @RequiredArgsConstructor // Tự động inject Repository qua Constructor
@@ -48,6 +52,31 @@ public class PromotionServiceImpl implements PromotionService {
         promotion.setStatus(PromotionStatus.DRAFT);
 
         // 3. Lưu xuống DB
+        return promotionRepository.save(promotion);
+    }
+
+    @Override
+    public List<Promotion> getActivePromotions(Long franchiseId) {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (franchiseId != null) {
+            return promotionRepository.findActivePromotionsByFranchiseNow(franchiseId, now);
+        }
+
+        return promotionRepository.findActivePromotionsNow(now);
+    }
+
+    @Override
+    public Promotion getPromotionById(Long id) {
+        return promotionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Promotion not found with id: " + id));
+    }
+
+    @Override
+    @Transactional
+    public Promotion updatePromotionStatus(Long id, PromotionStatus status) {
+        Promotion promotion = getPromotionById(id);
+        promotion.setStatus(status);
         return promotionRepository.save(promotion);
     }
 }
