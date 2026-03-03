@@ -63,20 +63,28 @@ public class CouponServiceImpl implements CouponService {
         LocalDateTime now = LocalDateTime.now();
         Promotion promotion = coupon.getPromotion();
 
-        if (coupon.getUsedCount() >= coupon.getUsageLimit() && coupon.getUsageLimit() != 0) {
-            throw new InvalidCouponException("Phiếu giảm giá hết lượt dùng");
+        if (coupon.getUsedCount() >= coupon.getUsageLimit() || coupon.getUsageLimit() == 0) {
+            throw new InvalidCouponException("Mã giảm giá hết lượt dùng");
         }
 
         if(now.isAfter(promotion.getEndDate())) {
-            throw new InvalidCouponException("Phiếu giảm giá đã hết hạn");
+            throw new InvalidCouponException("Mã giảm giá đã hết hạn");
         }
 
         if(now.isBefore(promotion.getStartDate())) {
-            throw new InvalidCouponException("Phiếu giảm giá chưa bắt đầu");
+            throw new InvalidCouponException("Mã giảm giá chưa bắt đầu");
         }
 
         if (req.getOrderAmount() < coupon.getMinOrderValue()) {
-            throw new InvalidCouponException("Tổng số tiền đơn hàng không đủ để áp dụng phiếu giảm giá");
+            throw new InvalidCouponException("Tổng số tiền đơn hàng không đủ để áp dụng Mã giảm giá");
+        }
+
+        if(!promotion.isActive()){
+            throw new InvalidCouponException("Hiện không có chương trình khuyến mãi này!");
+        }
+
+        if(!coupon.isPublic()){
+            throw new InvalidCouponException("Bạn không có quyền sử dụng mã giảm giá này!");
         }
     }
 
