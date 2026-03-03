@@ -1,6 +1,8 @@
 package com.group5.engagement.service;
 
+import com.group5.engagement.dto.request.CreateLoyaltyTierRequest;
 import com.group5.engagement.dto.response.CustomerEngagementResponse;
+import com.group5.engagement.dto.response.LoyaltyTierResponse;
 import com.group5.engagement.dto.response.TransactionHistoryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +21,6 @@ public interface LoyaltyService {
             Long tierId,
             Pageable pageable
     );
+
+    LoyaltyTierResponse createTier(CreateLoyaltyTierRequest request);
 }

@@ -1,6 +1,7 @@
 package com.group5.engagement.dto.response;
 
 import com.group5.engagement.constants.CustomerStatus;
+import com.group5.engagement.constants.TierName;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class CustomerEngagementResponse {
     private Long franchiseId;
     private Integer currentPoints;
     private Integer totalEarnedPoints;
-    private String tierName;
+    private TierName tierName;
     private CustomerStatus status;
     private LocalDateTime firstOrderAt;
     private LocalDateTime lastOrderAt;

@@ -1,11 +1,15 @@
 package com.group5.engagement.service.impl;
 
+import com.group5.engagement.dto.request.CreateLoyaltyTierRequest;
 import com.group5.engagement.dto.response.CustomerEngagementResponse;
+import com.group5.engagement.dto.response.LoyaltyTierResponse;
 import com.group5.engagement.dto.response.TransactionHistoryResponse;
 import com.group5.engagement.entity.CustomerFranchise;
+import com.group5.engagement.entity.LoyaltyTier;
 import com.group5.engagement.entity.PointTransaction;
 import com.group5.engagement.exception.ResourceNotFoundException;
 import com.group5.engagement.repository.CustomerFranchiseRepository;
+import com.group5.engagement.repository.LoyaltyTierRepository;
 import com.group5.engagement.repository.PointTransactionRepository;
 import com.group5.engagement.service.LoyaltyService;
 import lombok.NonNull;
@@ -21,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LoyaltyServiceImpl implements LoyaltyService {
 
+    private final LoyaltyTierRepository tierRepository;
     private final CustomerFranchiseRepository customerFranchiseRepository;
     private final PointTransactionRepository pointTransactionRepository;
     @Override
@@ -36,7 +41,7 @@ public class LoyaltyServiceImpl implements LoyaltyService {
                 .franchiseId(cf.getFranchiseId())
                 .currentPoints(cf.getCurrentPoints())
                 .totalEarnedPoints(cf.getTotalEarnedPoints())
-                .tierName(cf.getTier() != null ? cf.getTier().getName() : "No Tier")
+                .tierName(cf.getTier() != null ? cf.getTier().getName() : null)
                 .status(cf.getStatus())
                 .firstOrderAt(cf.getFirstOrderAt())
                 .lastOrderAt(cf.getLastOrderAt())
@@ -71,7 +76,7 @@ public class LoyaltyServiceImpl implements LoyaltyService {
                     .franchiseId(cf.getFranchiseId())
                     .currentPoints(cf.getCurrentPoints())
                     .totalEarnedPoints(cf.getTotalEarnedPoints())
-                    .tierName(cf.getTier() != null ? cf.getTier().getName() : "No Tier")
+                    .tierName(cf.getTier() != null ? cf.getTier().getName() : null)
                     .status(cf.getStatus())
                     .firstOrderAt(cf.getFirstOrderAt())
                     .lastOrderAt(cf.getLastOrderAt())
@@ -90,6 +95,42 @@ public class LoyaltyServiceImpl implements LoyaltyService {
                 .referenceId(pt.getReferenceId())
                 .createdAt(pt.getCreatedAt())
                 .expiryDate(pt.getExpiryDate())
+                .build();
+    }
+
+    @Override
+    public LoyaltyTierResponse createTier(CreateLoyaltyTierRequest request) {
+
+        if (tierRepository.existsByFranchiseIdAndName(
+                request.getFranchiseId(),
+                request.getName())) {
+
+            throw new IllegalArgumentException("Tier name already exists in this franchise");
+        }
+
+        int minPoints = switch (request.getName()) {
+            case BRONZE -> 0;
+            case SILVER -> 500;
+            case GOLD -> 1000;
+        };
+
+        LoyaltyTier tier = LoyaltyTier.builder()
+                .franchiseId(request.getFranchiseId())
+                .name(request.getName())
+                .minPoints(minPoints)   // 👈 auto set
+                .tierMultiplier(request.getTierMultiplier())
+                .benefits(request.getBenefits())
+                .build();
+
+        LoyaltyTier saved = tierRepository.save(tier);
+
+        return LoyaltyTierResponse.builder()
+                .id(saved.getId())
+                .franchiseId(saved.getFranchiseId())
+                .name(saved.getName())
+                .minPoints(saved.getMinPoints())
+                .tierMultiplier(saved.getTierMultiplier())
+                .benefits(saved.getBenefits())
                 .build();
     }
 }
