@@ -3,6 +3,7 @@
 //import com.group5.engagement.constants.ActionType;
 //import com.group5.engagement.constants.CustomerStatus;
 //import com.group5.engagement.constants.PromotionStatus;
+//import com.group5.engagement.constants.TierName;
 //import com.group5.engagement.entity.*;
 //import com.group5.engagement.repository.*;
 //import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@
 //            PromotionRepository promotionRepository) {
 //
 //        return args -> {
-//            // Check nếu đã có data thì không init nữa
+//
 //            if (tierRepository.count() > 0) {
 //                log.info("Database already initialized. Skipping data initialization.");
 //                return;
@@ -34,66 +35,81 @@
 //
 //            log.info("Initializing database with sample data...");
 //
-//            // 1. Tạo Loyalty Tiers
-//            LoyaltyTier bronze1 = tierRepository.save(LoyaltyTier.builder()
+//            // ===============================
+//            // 1. CREATE LOYALTY TIERS
+//            // ===============================
+//
+//            LoyaltyTier bronze = tierRepository.save(LoyaltyTier.builder()
 //                    .franchiseId(1L)
-//                    .name("Bronze")
+//                    .name(TierName.BRONZE)
 //                    .minPoints(0)
 //                    .tierMultiplier(1.0)
 //                    .benefits("Hạng cơ bản - Tích điểm thường")
 //                    .build());
 //
-//            LoyaltyTier silver1 = tierRepository.save(LoyaltyTier.builder()
+//            LoyaltyTier silver = tierRepository.save(LoyaltyTier.builder()
 //                    .franchiseId(1L)
-//                    .name("Silver")
+//                    .name(TierName.SILVER)
 //                    .minPoints(500)
 //                    .tierMultiplier(1.2)
 //                    .benefits("Giảm 5% - Tích điểm x1.2")
 //                    .build());
 //
-//            LoyaltyTier gold1 = tierRepository.save(LoyaltyTier.builder()
+//            LoyaltyTier gold = tierRepository.save(LoyaltyTier.builder()
 //                    .franchiseId(1L)
-//                    .name("Gold")
+//                    .name(TierName.GOLD)
 //                    .minPoints(1000)
 //                    .tierMultiplier(1.5)
 //                    .benefits("Giảm 10% - Tích điểm x1.5 - Ưu tiên hỗ trợ")
 //                    .build());
 //
-//            // 2. Tạo Customer Franchise
-//            CustomerFranchise customer1 = customerFranchiseRepository.save(CustomerFranchise.builder()
-//                    .customerId(1L)
-//                    .franchiseId(1L)
-//                    .currentPoints(250)
-//                    .totalEarnedPoints(300)
-//                    .tier(bronze1)
-//                    .status(CustomerStatus.ACTIVE)
-//                    .firstOrderAt(LocalDateTime.of(2026, 1, 15, 10, 0))
-//                    .lastOrderAt(LocalDateTime.of(2026, 3, 5, 11, 0))
-//                    .build());
+//            // ===============================
+//            // 2. CREATE CUSTOMER FRANCHISE
+//            // ===============================
 //
-//            CustomerFranchise customer2 = customerFranchiseRepository.save(CustomerFranchise.builder()
-//                    .customerId(2L)
-//                    .franchiseId(1L)
-//                    .currentPoints(1300)
-//                    .totalEarnedPoints(1500)
-//                    .tier(gold1)
-//                    .status(CustomerStatus.ACTIVE)
-//                    .firstOrderAt(LocalDateTime.of(2026, 1, 10, 9, 0))
-//                    .lastOrderAt(LocalDateTime.of(2026, 3, 2, 16, 0))
-//                    .build());
+//            CustomerFranchise customer1 = customerFranchiseRepository.save(
+//                    CustomerFranchise.builder()
+//                            .customerId(1L)
+//                            .franchiseId(1L)
+//                            .currentPoints(250)
+//                            .totalEarnedPoints(300)
+//                            .tier(bronze)
+//                            .status(CustomerStatus.ACTIVE)
+//                            .firstOrderAt(LocalDateTime.of(2026, 1, 15, 10, 0))
+//                            .lastOrderAt(LocalDateTime.of(2026, 3, 5, 11, 0))
+//                            .build()
+//            );
 //
-//            customerFranchiseRepository.save(CustomerFranchise.builder()
-//                    .customerId(3L)
-//                    .franchiseId(1L)
-//                    .currentPoints(100)
-//                    .totalEarnedPoints(100)
-//                    .tier(bronze1)
-//                    .status(CustomerStatus.ACTIVE)
-//                    .firstOrderAt(LocalDateTime.of(2026, 2, 20, 11, 0))
-//                    .lastOrderAt(LocalDateTime.of(2026, 2, 28, 15, 0))
-//                    .build());
+//            CustomerFranchise customer2 = customerFranchiseRepository.save(
+//                    CustomerFranchise.builder()
+//                            .customerId(2L)
+//                            .franchiseId(1L)
+//                            .currentPoints(1300)
+//                            .totalEarnedPoints(1500)
+//                            .tier(gold)
+//                            .status(CustomerStatus.ACTIVE)
+//                            .firstOrderAt(LocalDateTime.of(2026, 1, 10, 9, 0))
+//                            .lastOrderAt(LocalDateTime.of(2026, 3, 2, 16, 0))
+//                            .build()
+//            );
 //
-//            // 3. Tạo Point Transactions
+//            customerFranchiseRepository.save(
+//                    CustomerFranchise.builder()
+//                            .customerId(3L)
+//                            .franchiseId(1L)
+//                            .currentPoints(100)
+//                            .totalEarnedPoints(100)
+//                            .tier(bronze)
+//                            .status(CustomerStatus.ACTIVE)
+//                            .firstOrderAt(LocalDateTime.of(2026, 2, 20, 11, 0))
+//                            .lastOrderAt(LocalDateTime.of(2026, 2, 28, 15, 0))
+//                            .build()
+//            );
+//
+//            // ===============================
+//            // 3. CREATE POINT TRANSACTIONS
+//            // ===============================
+//
 //            pointTransactionRepository.save(PointTransaction.builder()
 //                    .customerFranchise(customer1)
 //                    .amount(100)
@@ -148,7 +164,10 @@
 //                    .expiryDate(LocalDateTime.of(2027, 3, 10, 23, 59))
 //                    .build());
 //
-//            // 4. Tạo Promotions
+//            // ===============================
+//            // 4. CREATE PROMOTIONS
+//            // ===============================
+//
 //            promotionRepository.save(Promotion.builder()
 //                    .franchiseId(1L)
 //                    .name("Khuyến mãi mùa xuân 2026")
