@@ -35,4 +35,9 @@ public class Promotion extends BaseEntity {
     @OneToMany(mappedBy = "promotion")
     @JsonIgnore  
     private List<Coupon> coupons;
+
+    @Column(name = "is_active")
+    private boolean isActive = true;
+
+    private String type;
 }
