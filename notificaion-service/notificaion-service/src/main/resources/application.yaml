@@ -1,3 +1,22 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /api/v1
+
 spring:
   application:
-    name: notificaion-service
+    name: notification-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/notification_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
