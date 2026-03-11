@@ -9,12 +9,14 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
 
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     show-sql: false
     open-in-view: false
+    database-platform: ${JPA_DIALECT:org.hibernate.dialect.MySQLDialect}
 
   mail:
     host: smtp.gmail.com
@@ -35,7 +37,7 @@ spring:
       enabled: ${SPRING_CLOUD_DISCOVERY_ENABLED:true}
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:V7Pz0c5ZmTz4IVBdBrgiapaNOSKpRDWtT8AsXm+C1mE=}
   access-token-expiration: ${JWT_ACCESS_EXPIRATION:900000}
   refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
