@@ -36,19 +36,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(
-                                    // Auth endpoints
                                     "/auth/register",
                                     "/auth/login",
                                     "/auth/refresh",
                                     "/auth/forgot-password",
-                                    "/auth/reset-password",
-                                    // Swagger UI
-                                    "/swagger-ui/**",
-                                    "/swagger-ui.html",
-                                    "/v3/api-docs/**",
-                                    "/v3/api-docs",
-                                    // Actuator
-                                    "/actuator/**"
+                                    "/auth/reset-password"
                             ).permitAll()
 
                             .anyRequest().authenticated();
@@ -56,7 +48,7 @@ public class SecurityConfig {
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
+// Cấu hình AuthenticationManager để sử dụng CustomerUserDetailsService và PasswordEncoder
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, CustomerUserDetailsService customerUserDetailsService) throws Exception {
         AuthenticationManagerBuilder authBuilder =
@@ -72,13 +64,16 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Cho phép tất cả origins để test public API (Railway, Swagger, Postman, Frontend)
-        configuration.setAllowedOriginPatterns(List.of("*"));
+        // Cho phép Frontend ở cổng 5173 truy cập
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        // Cho phép các HTTP method này
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        // Cho phép các header cần thiết
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "x-no-retry"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Áp dụng cấu hình CORS này cho toàn bộ API (/**)
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
