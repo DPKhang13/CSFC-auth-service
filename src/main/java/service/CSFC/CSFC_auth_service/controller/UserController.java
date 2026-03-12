@@ -13,9 +13,11 @@ import service.CSFC.CSFC_auth_service.common.security.CustomerUserDetails;
 import service.CSFC.CSFC_auth_service.model.dto.request.CreateUserRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
 import service.CSFC.CSFC_auth_service.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.UUID;
 
+@Tag(name = "User Management", description = "Quản lý thông tin người dùng")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")

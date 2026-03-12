@@ -4,6 +4,7 @@ package service.CSFC.CSFC_auth_service.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import service.CSFC.CSFC_auth_service.service.LoyaltyService;
 
 import java.util.List;
 
+@Tag(name = "Admin - Loyalty Management", description = "Admin quản lý tiers, rules loyalty")
 @RestController
 @RequestMapping("/api/engagement/admin/loyalty")
 @RequiredArgsConstructor

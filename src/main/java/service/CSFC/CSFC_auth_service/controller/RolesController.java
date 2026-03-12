@@ -9,7 +9,9 @@ import service.CSFC.CSFC_auth_service.model.dto.request.RolesRequest;
 import service.CSFC.CSFC_auth_service.model.dto.request.UpdateRolesRequest;
 import service.CSFC.CSFC_auth_service.model.dto.response.RolesResponse;
 import service.CSFC.CSFC_auth_service.service.RolesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Roles Management", description = "Quản lý các roles trong hệ thống")
 @RestController
 @RequestMapping("/roles")
 @RequiredArgsConstructor

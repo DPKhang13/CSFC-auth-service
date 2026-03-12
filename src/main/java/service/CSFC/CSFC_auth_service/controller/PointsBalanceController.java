@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,12 @@ import service.CSFC.CSFC_auth_service.model.dto.response.PointsBalanceResponse;
 import service.CSFC.CSFC_auth_service.service.PointsBalanceService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/engagement/points")
 @Tag(name = "Points Balance", description = "API for viewing customer points balance")
 public class PointsBalanceController {
 
-    @Autowired
-    private PointsBalanceService pointsBalanceService;
+    private final PointsBalanceService pointsBalanceService;
 
     @GetMapping("/balance")
     @Operation(summary = "Get Points Balance (Query Params)",

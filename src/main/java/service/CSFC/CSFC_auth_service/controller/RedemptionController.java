@@ -1,6 +1,7 @@
 package service.CSFC.CSFC_auth_service.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +11,18 @@ import service.CSFC.CSFC_auth_service.model.dto.response.QRCheckResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.RedemptionQRResponse;
 import service.CSFC.CSFC_auth_service.model.entity.Redemption;
 import service.CSFC.CSFC_auth_service.service.RedemptionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Tag(name = "Redemption", description = "API đổi thưởng qua QR code")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/engagement/redemption")
 public class RedemptionController {
-    @Autowired
-    private RedemptionService redemptionService;
+
+    private final RedemptionService redemptionService;
 
     @PostMapping("/confirm/{rewardId}")
     public ResponseEntity<ApiResponse<RedemptionQRResponse>> confirmRedeem(

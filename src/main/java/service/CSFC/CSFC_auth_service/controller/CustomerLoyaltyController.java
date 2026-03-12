@@ -8,9 +8,11 @@ import service.CSFC.CSFC_auth_service.model.dto.response.CustomerEngagementRespo
 import service.CSFC.CSFC_auth_service.model.dto.response.RedeemResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.TransactionHistoryResponse;
 import service.CSFC.CSFC_auth_service.service.LoyaltyService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
+@Tag(name = "Customer Loyalty", description = "API loyalty cho khách hàng: điểm, lịch sử giao dịch, đổi điểm")
 @RestController
 @RequestMapping("/api/engagement/loyalty")
 @RequiredArgsConstructor

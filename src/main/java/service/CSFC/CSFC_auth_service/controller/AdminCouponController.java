@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +17,12 @@ import service.CSFC.CSFC_auth_service.model.entity.Coupon;
 import service.CSFC.CSFC_auth_service.service.CouponService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/engagement/coupons")
 @Tag(name = "Admin Coupon Management", description = "APIs for generating and managing coupon codes")
 public class AdminCouponController {
 
-    @Autowired
-    private CouponService couponService;
+    private final CouponService couponService;
 
     @PostMapping("/generate")
     @Operation(

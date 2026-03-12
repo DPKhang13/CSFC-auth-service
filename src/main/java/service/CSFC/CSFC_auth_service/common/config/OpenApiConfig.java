@@ -1,10 +1,14 @@
 package service.CSFC.CSFC_auth_service.common.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +25,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Authentication Service API")
+                        .title("CSFC Unified API")
                         .version("1.0.0")
-                        .description("API documentation for Authentication & User Management System")
+                        .description("API tổng hợp cho Authentication Service & Engagement Service")
                         .contact(new Contact()
                                 .name("Group 5")
                                 .email("support@group5.com"))
@@ -34,6 +38,50 @@ public class OpenApiConfig {
                         new Server()
                                 .url("http://localhost:8080" + contextPath)
                                 .description("Local Development Server")
-                ));
+                ))
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+                .components(new Components()
+                        .addSecuritySchemes("Bearer Authentication",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                                        .description("Nhập JWT token để authenticate")));
+    }
+
+    @Bean
+    public GroupedOpenApi authenticationGroup() {
+        return GroupedOpenApi.builder()
+                .group("1. Authentication Service")
+                .displayName("Authentication Service")
+                .pathsToMatch(
+                        "/auth/**",
+                        "/users/**",
+                        "/roles/**",
+                        "/admin/roles/**",
+                        "/api/admin/auth-users/**"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi engagementGroup() {
+        return GroupedOpenApi.builder()
+                .group("2. Engagement Service")
+                .displayName("Engagement Service")
+                .pathsToMatch(
+                        "/api/engagement/**",
+                        "/engagement/**"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi allApisGroup() {
+        return GroupedOpenApi.builder()
+                .group("0. All APIs")
+                .displayName("Tất cả API")
+                .pathsToMatch("/**")
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package service.CSFC.CSFC_auth_service.controller;
 
-
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.model.dto.request.ApplyCouponRequest;
@@ -13,11 +14,13 @@ import service.CSFC.CSFC_auth_service.service.CouponService;
 
 import java.util.List;
 
+@Tag(name = "Coupon", description = "API áp dụng và quản lý coupon khuyến mãi")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/engagement/coupons")
 public class CouponController {
-    @Autowired
-    private CouponService couponService;
+
+    private final CouponService couponService;
 
     @PostMapping("/apply")
     public ApiResponse<ApplyCouponResponse> apply(@RequestBody ApplyCouponRequest req){
