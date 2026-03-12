@@ -52,8 +52,8 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi authenticationGroup() {
         return GroupedOpenApi.builder()
-                .group("1. Authentication Service")
-                .displayName("Authentication Service")
+                .group("authentication")
+                .displayName("1. Authentication Service")
                 .pathsToMatch(
                         "/auth/**",
                         "/users/**",
@@ -67,8 +67,8 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi engagementGroup() {
         return GroupedOpenApi.builder()
-                .group("2. Engagement Service")
-                .displayName("Engagement Service")
+                .group("engagement")
+                .displayName("2. Engagement Service")
                 .pathsToMatch(
                         "/api/engagement/**",
                         "/engagement/**"
@@ -79,8 +79,8 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi allApisGroup() {
         return GroupedOpenApi.builder()
-                .group("0. All APIs")
-                .displayName("Tất cả API")
+                .group("all")
+                .displayName("0. All APIs")
                 .pathsToMatch("/**")
                 .build();
     }
