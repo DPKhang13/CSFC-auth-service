@@ -40,7 +40,10 @@ public class SecurityConfig {
                                     "/auth/login",
                                     "/auth/refresh",
                                     "/auth/forgot-password",
-                                    "/auth/reset-password"
+                                    "/auth/reset-password",
+                                    "/v3/api-docs/**",
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html"
                             ).permitAll()
 
                             .anyRequest().authenticated();
@@ -65,7 +68,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Cho phép Frontend ở cổng 5173 truy cập
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:8080"));
         // Cho phép các HTTP method này
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         // Cho phép các header cần thiết

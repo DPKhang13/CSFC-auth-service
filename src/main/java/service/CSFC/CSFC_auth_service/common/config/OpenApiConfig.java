@@ -21,9 +21,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Engagement Service API")
+                        .title("Authentication Service API")
                         .version("1.0.0")
-                        .description("API documentation for Loyalty & Promotion Management System")
+                        .description("API documentation for Authentication & User Management System")
                         .contact(new Contact()
                                 .name("Group 5")
                                 .email("support@group5.com"))
@@ -32,7 +32,7 @@ public class OpenApiConfig {
                                 .url("https://www.apache.org/licenses/LICENSE-2.0.html")))
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8083" + contextPath)
+                                .url("http://localhost:8080" + contextPath)
                                 .description("Local Development Server")
                 ));
     }
