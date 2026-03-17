@@ -44,7 +44,7 @@ eureka:
   client:
     enabled: ${EUREKA_CLIENT_ENABLED:true}
     service-url:
-      defaultZone: ${EUREKA_URL:https://microservice-59zl.onrender.com}
+      defaultZone: ${EUREKA_URL:https://microservice-i7nc.onrender.com/eureka}
     fetch-registry: true
     register-with-eureka: true
   instance:
