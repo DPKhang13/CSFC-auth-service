@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name = "Admin - Reward Management", description = "Admin quản lý phần thưởng (rewards)")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/engagement/admin/rewards")
+@RequestMapping("api/authentication-service/admin/rewards")
 public class AdminRewardController {
 
     private final RewardService rewardService;

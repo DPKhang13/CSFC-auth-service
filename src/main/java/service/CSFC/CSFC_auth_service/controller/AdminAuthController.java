@@ -19,7 +19,7 @@ import java.util.UUID;
 @Tag(name = "Admin - User Management", description = "Admin quản lý người dùng, gán role, reset password")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/auth-users")
+@RequestMapping("api/authentication-service/auth-users")
 public class AdminAuthController {
 
     private final AdminUserService adminUserService;

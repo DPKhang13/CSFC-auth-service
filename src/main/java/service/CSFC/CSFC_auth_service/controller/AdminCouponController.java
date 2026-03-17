@@ -18,7 +18,7 @@ import service.CSFC.CSFC_auth_service.service.CouponService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/engagement/coupons")
+@RequestMapping("api/authentication-service/coupons")
 @Tag(name = "Admin Coupon Management", description = "APIs for generating and managing coupon codes")
 public class AdminCouponController {
 

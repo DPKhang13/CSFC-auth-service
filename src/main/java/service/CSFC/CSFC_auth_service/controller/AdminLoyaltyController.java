@@ -24,7 +24,7 @@ import java.util.List;
 
 @Tag(name = "Admin - Loyalty Management", description = "Admin quản lý tiers, rules loyalty")
 @RestController
-@RequestMapping("/api/engagement/admin/loyalty")
+@RequestMapping("api/authentication-service/admin/loyalty")
 @RequiredArgsConstructor
 public class AdminLoyaltyController {
     private final LoyaltyService loyaltyService;

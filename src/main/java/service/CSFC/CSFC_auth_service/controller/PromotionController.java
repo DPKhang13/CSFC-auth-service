@@ -19,7 +19,7 @@ import service.CSFC.CSFC_auth_service.service.PromotionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/engagement/promotions")
+@RequestMapping("api/authentication-service/promotions")
 @RequiredArgsConstructor
 @Tag(name = "Promotion Controller", description = "APIs quản lý khuyến mãi (Promotions)")
 public class PromotionController {

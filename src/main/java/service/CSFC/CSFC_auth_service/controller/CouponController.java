@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Coupon", description = "API áp dụng và quản lý coupon khuyến mãi")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/engagement/coupons")
+@RequestMapping("api/authentication-service/coupons")
 public class CouponController {
 
     private final CouponService couponService;

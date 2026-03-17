@@ -19,7 +19,7 @@ import java.util.Optional;
 @Tag(name = "Redemption", description = "API đổi thưởng qua QR code")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/engagement/redemption")
+@RequestMapping("api/authentication-service/redemption")
 public class RedemptionController {
 
     private final RedemptionService redemptionService;

@@ -15,7 +15,7 @@ import service.CSFC.CSFC_auth_service.service.PointsBalanceService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/engagement/points")
+@RequestMapping("api/authentication-service/points")
 @Tag(name = "Points Balance", description = "API for viewing customer points balance")
 public class PointsBalanceController {
 
