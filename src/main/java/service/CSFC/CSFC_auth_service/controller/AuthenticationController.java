@@ -5,18 +5,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import service.CSFC.CSFC_auth_service.common.response.BaseResponse;
-import service.CSFC.CSFC_auth_service.common.security.CustomerUserDetails;
 import service.CSFC.CSFC_auth_service.model.dto.request.*;
 import service.CSFC.CSFC_auth_service.model.dto.response.AuthResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.RegisterResponse;
-import service.CSFC.CSFC_auth_service.model.dto.response.UserResponse;
 import service.CSFC.CSFC_auth_service.service.AuthenticationService;
-import service.CSFC.CSFC_auth_service.service.UserService;
 
 @Tag(name = "Authentication", description = "Đăng ký, đăng nhập, refresh token, quên mật khẩu")
 @RestController
@@ -58,4 +53,13 @@ public class AuthenticationController {
         authenticationService.resetPassword(request);
         return ResponseEntity.ok(BaseResponse.success("Đặt lại mật khẩu thành công", null));
     }
+
+    @PostMapping("/register-customer")
+    public ResponseEntity<BaseResponse<RegisterResponse>> registerCustomer(@Valid @RequestBody RegisterRequest request) {
+        RegisterResponse response = authenticationService.registerCustomer(request);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(BaseResponse.success("Đăng ký customer thành công", response));
+    }
+
 }
