@@ -36,12 +36,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(
-                                    "/auth/register",
-                                    "/auth/register-customer",
-                                    "/auth/login",
-                                    "/auth/refresh",
-                                    "/auth/forgot-password",
-                                    "/auth/reset-password",
+                                    "/api/authentication-service/auth/register",
+                                    "/api/authentication-service/auth/register-customer",
+                                    "/api/authentication-service/auth/login",
+                                    "/api/authentication-service/auth/refresh",
+                                    "/api/authentication-service/authforgot-password",
+                                    "/api/authentication-service/auth/reset-password",
                                     "/v3/api-docs/**",
                                     "/v3/api-docs.yaml",
                                     "/swagger-ui/**",
