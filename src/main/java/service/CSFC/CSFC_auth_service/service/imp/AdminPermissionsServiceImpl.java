@@ -1,9 +1,9 @@
 package service.CSFC.CSFC_auth_service.service.imp;
 
+import jakarta.transaction.Transactional;
 import lombok.*;
 import org.springframework.stereotype.*;
 import service.CSFC.CSFC_auth_service.mapper.PermissionMapper;
-import service.CSFC.CSFC_auth_service.model.dto.response.AdminPermissionsCreateResponse;
 import service.CSFC.CSFC_auth_service.model.dto.response.AdminPermissionsViewResponse;
 import service.CSFC.CSFC_auth_service.model.entity.Permission;
 import service.CSFC.CSFC_auth_service.model.entity.Roles;
@@ -11,7 +11,6 @@ import service.CSFC.CSFC_auth_service.repository.PermissionsRepository;
 import service.CSFC.CSFC_auth_service.repository.RolesRepository;
 import service.CSFC.CSFC_auth_service.service.AdminPermissionsService;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 @Service
@@ -59,18 +58,25 @@ public class AdminPermissionsServiceImpl implements AdminPermissionsService {
                 .toList();
     }
 
+    @Transactional
     @Override
     public void deletePermissionFromRole(Integer roleId, String permissionName) {
         Roles role = rolesRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role không tồn tại"));
 
-        Permission permission = permissionsRepository.findByName(permissionName)
+        Permission targetP = permissionsRepository.findByName(permissionName)
                 .orElseThrow(() -> new RuntimeException("Permission không tồn tại"));
 
-        if (!role.getPermissions().contains(permission)) {
+        // Thay vì dùng .contains(), ta dùng Stream so sánh ID trực tiếp
+        boolean exists = role.getPermissions().stream()
+                .anyMatch(p -> p.getId() == targetP.getId());
+
+        if (!exists) {
             throw new RuntimeException("Permission không tồn tại trong role");
         }
-        role.getPermissions().remove(permission);
+
+        // Xóa bằng removeIf dựa trên ID
+        role.getPermissions().removeIf(p -> p.getId() == targetP.getId());
 
         rolesRepository.save(role);
     }
